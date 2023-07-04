@@ -1,25 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  useLocation
 } from 'react-router-dom'
-import routes from './router'
+import routes from '@/router'
 import { ConfigProvider } from 'zarm'
-import zhCN from 'zarm/lib/config-provider/locale/zh_CN'
-import 'zarm/dist/zarm.css'
+import NavBar from '@/components/Nav'
 
 function App() {
+  const location = useLocation()
+  const { pathName } = location
+  const needNav = ['/', '/data', '/user']
+  const [showNav, setShowNav] = useState(false)
+  useEffect(() => {
+    setShowNav(needNav.includes(pathName))
+  }, [pathName])
   return (
-    <>
-      <Router>
-        <ConfigProvider primaryColor={'#007fff'} locale={zhCN}>
+      <>
+        <ConfigProvider primaryColor={'#007fff'}>
           <Routes>
-            {routes.map(route => <Route exact key={route.path} path={route.path} element={<route.component />}></Route>)}
+            {
+              routes.map(route => <Route exact key={route.path} path={route.path} element={<route.component />}>
+              </Route>)
+            }
           </Routes>
         </ConfigProvider>
-      </Router>
-    </>
+        <NavBar showNav={showNav}/>
+      </>
   )
 }
 
