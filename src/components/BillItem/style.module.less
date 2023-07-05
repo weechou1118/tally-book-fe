@@ -1,0 +1,41 @@
+.item {
+  margin: 10px;
+  box-shadow: 0 0 4px rgba(0,0,0, .2);
+  border-radius: 5px;
+  .headerDate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(244, 244, 244);
+    .date {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .money {
+      display: flex;
+      font-size: 12px;
+      & > div {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        img {
+          width: 20px;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+  .bill {
+    .itemIcon {
+      color: rgb(51, 128, 246); 
+    }
+    .itemTitle {
+      font-size: 16px;
+      vertical-align: text-bottom;
+    }
+    .date {
+      color: #000;
+    }
+  }
+}

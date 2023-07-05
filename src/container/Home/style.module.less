@@ -1,0 +1,35 @@
+.home {
+  height: calc(100vh - 50px);
+  .header {
+    color: #fff;
+    padding: 10px;
+    background-color: rgb(51, 128, 246); 
+    .dataWrap {
+      font-size: 12px;
+      b {
+        font-size: 20px;
+      }
+      .expense {
+        margin-right: 10px;
+      }
+    }
+    .typeWrap {
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      .left, .right {
+
+      }
+    }
+  }
+  .contentWrap {
+    height: calc(100% - 50px);
+    overflow: scroll;
+    :global {
+      .za-pull {
+        height: 100%;
+        overflow: scroll;
+      }
+    }
+  }
+}

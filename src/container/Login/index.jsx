@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { List, Input, Button, Checkbox, Toast } from 'zarm'
+import { Cell, Input, Button, Checkbox, Toast } from 'zarm'
 import CustomIcon from '@/components/CustomIcon'
 import Capture from 'react-captcha-code'
 import { post } from '@/utils'
@@ -69,38 +69,36 @@ const Login = () => {
       <span className={ cx({ [s.active]: type == 'register' }) } onClick={() => setType('register')}>注册</span>
     </div>
     <div className={s.form}>
-      <List>
-        <List.Item prefix={<CustomIcon type="zhanghao" />}>
-          <Input
-            clearable
-            type="text"
-            placeholder="请输入账号"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </List.Item>
-        <List.Item prefix={<CustomIcon type="mima" />}>
-          <Input
-            clearable
-            type="password"
-            placeholder="请输入密码"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </List.Item>
-        {
-          type === 'register' ? 
-            (<List.Item prefix={<CustomIcon type="mima" />}>
-              <Input
-                clearable
-                type="text"
-                placeholder="请输入验证码"
-                onChange={(e) => setVerify(e.target.value)}
-              />
-              <Capture charNum={4} onChange={handleChange}/>
-            </List.Item>)
-            :
-            null
-        }
-      </List>
+      <Cell prefix={<CustomIcon type="zhanghao" />}>
+        <Input
+          clearable
+          type="text"
+          placeholder="请输入账号"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </Cell>
+      <Cell prefix={<CustomIcon type="mima" />}>
+        <Input
+          clearable
+          type="password"
+          placeholder="请输入密码"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Cell>
+      {
+        type === 'register' ? 
+          (<Cell prefix={<CustomIcon type="mima" />}>
+            <Input
+              clearable
+              type="text"
+              placeholder="请输入验证码"
+              onChange={(e) => setVerify(e.target.value)}
+            />
+            <Capture charNum={4} onChange={handleChange}/>
+          </Cell>)
+          :
+          null
+      }
     </div>
     <div className={s.operation}>
       {
