@@ -64,8 +64,8 @@ const BillItem = ({ bill }) => {
             <span className={s.itemTitle}>{ item.type_name }</span>
           </>
         }
-        suffix={<span style={{ color: item.pay_type == 2 ? 'red' : '#39be77', fontSize: '16px' }}>{`${item.pay_type == 1 ? '-' : '+'}${item.amount}`}</span>}
-        description={<div className={s.date}>{dayjs(Number(item.date)).format('HH:mm')} {item.remark ? `| ${item.remark}` : ''}</div>}
+        description={<span style={{ color: item.pay_type == 2 ? 'red' : '#39be77', fontSize: '16px' }}>{`${item.pay_type == 1 ? '-' : '+'}${item.amount}`}</span>}
+        help={<div className={s.date}>{dayjs(Number(item.date)).format('HH:mm')} {item.remark ? `| ${item.remark}` : ''}</div>}
       >
       </Cell>)
     }

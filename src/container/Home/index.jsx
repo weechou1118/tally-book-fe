@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Icon, Pull } from 'zarm'
 import dayjs from 'dayjs'
 import BillItem from '@/components/BillItem'
+import PopupType from '@/components/PopupType'
 import { get, REFRESH_STATE, LOAD_STATE } from '@/utils' // Pull 组件需要的一些常量
 
 import s from './style.module.less'
 
 const Home = () => {
+  const typeRef = useRef()
   const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM')); // 当前筛选时间
   const [page, setPage] = useState(1); // 分页
   const [totalPage, setTotalPage] = useState(0); // 分页总数
@@ -14,6 +16,7 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(REFRESH_STATE.normal); // 下拉刷新状态
   const [loading, setLoading] = useState(LOAD_STATE.normal); // 上拉加载状态
   const [list, setList] = useState([]); // 账单列表
+  const [currentSelect, setCurrentSelect] = useState({}); // 当前筛选类型
 
   useEffect(() => {
     getBillList()
@@ -37,6 +40,19 @@ const Home = () => {
     // 上滑加载状态
     setLoading(LOAD_STATE.success);
     setRefreshing(REFRESH_STATE.success);
+  }
+
+  // 添加账单弹窗
+  const toggle = () => {
+    typeRef.current && typeRef.current.show()
+  };
+
+  // 筛选类型
+  const select = (item) => {
+    setRefreshing(REFRESH_STATE.loading);
+    // 触发刷新列表，将分页重制为 1
+    setPage(1);
+    setCurrentSelect(item)
   }
 
   // 请求列表数据
@@ -64,7 +80,9 @@ const Home = () => {
       </div>
       <div className={s.typeWrap}>
         <div className={s.left}>
-          <span className={s.title}>类型 <Icon className={s.arrow} type="arrow-bottom" /></span>
+          <span className={s.title} onClick={toggle}>
+            { currentSelect.name || '全部类型' }<Icon className={s.arrow} type="arrow-bottom" />
+          </span>
         </div>
         <div className={s.right}>
           <span className={s.time}>2022-06<Icon className={s.arrow} type="arrow-bottom" /></span>
@@ -94,6 +112,7 @@ const Home = () => {
           null
         }
     </div>
+    <PopupType ref={typeRef} onSelect={select}/>
   </div>
 }
 
