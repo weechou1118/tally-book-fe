@@ -1,0 +1,33 @@
+.popupType {
+  .header {
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #fff;
+    .close {
+      position: absolute;
+      right: 10px;
+    }
+  }
+  .content {
+    background-color: #f4f4f4;
+    .tab {
+      display: inline-block;
+      background-color: #fff;
+      font-size: 13px;
+      height: 40px;
+      width: 28%;
+      text-align: center;
+      line-height: 40px;
+      margin: 10px 0 0 15px;
+      &:last-child {
+        margin-bottom: 10px;
+      }
+      &.active {
+        background-color: rgb(51, 128, 246);
+        color: #fff;
+      }
+    }
+  }
+}

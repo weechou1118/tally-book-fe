@@ -69,20 +69,20 @@ const Login = () => {
       <span className={ cx({ [s.active]: type == 'register' }) } onClick={() => setType('register')}>注册</span>
     </div>
     <div className={s.form}>
-      <Cell prefix={<CustomIcon type="zhanghao" />}>
+      <Cell icon={<CustomIcon type="zhanghao" />}>
         <Input
           clearable
           type="text"
           placeholder="请输入账号"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(username) => setUsername(username)}
         />
       </Cell>
-      <Cell prefix={<CustomIcon type="mima" />}>
+      <Cell icon={<CustomIcon type="mima" />}>
         <Input
           clearable
           type="password"
           placeholder="请输入密码"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(password) => setPassword(password)}
         />
       </Cell>
       {

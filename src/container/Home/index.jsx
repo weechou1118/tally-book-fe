@@ -16,15 +16,15 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(REFRESH_STATE.normal); // 下拉刷新状态
   const [loading, setLoading] = useState(LOAD_STATE.normal); // 上拉加载状态
   const [list, setList] = useState([]); // 账单列表
-  const [currentSelect, setCurrentSelect] = useState({}); // 当前筛选类型
+  const [currentSelect, setCurrentSelect] = useState({ id: 0, name: '全部类型' }); // 当前筛选类型
 
   useEffect(() => {
     getBillList()
-  }, [page])
+  }, [page, currentSelect])
 
   // 获取账单方法
   const getBillList = async () => {
-    const { data } = await get(`/api/bill/list?page=${page}&page_size=10&date=${currentTime}`);
+    const { data } = await get(`/api/bill/list?page=${page}&page_size=10&date=${currentTime}&type_id=${currentSelect.id}`);
     setLoading(LOAD_STATE.loading);
     // 下拉刷新，重制数据
     if (page == 1) {
@@ -49,6 +49,7 @@ const Home = () => {
 
   // 筛选类型
   const select = (item) => {
+    console.log(item)
     setRefreshing(REFRESH_STATE.loading);
     // 触发刷新列表，将分页重制为 1
     setPage(1);
