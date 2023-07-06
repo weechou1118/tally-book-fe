@@ -92,7 +92,7 @@ const Login = () => {
               clearable
               type="text"
               placeholder="请输入验证码"
-              onChange={(e) => setVerify(e.target.value)}
+              onChange={(captcha) => setVerify(captcha)}
             />
             <Capture charNum={4} onChange={handleChange}/>
           </Cell>)
