@@ -3,12 +3,14 @@ import { Icon, Pull } from 'zarm'
 import dayjs from 'dayjs'
 import BillItem from '@/components/BillItem'
 import PopupType from '@/components/PopupType'
+import PopupDate from '@/components/PopupDate'
 import { get, REFRESH_STATE, LOAD_STATE } from '@/utils' // Pull 组件需要的一些常量
 
 import s from './style.module.less'
 
 const Home = () => {
   const typeRef = useRef()
+  const timeRef = useRef()
   const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM')); // 当前筛选时间
   const [page, setPage] = useState(1); // 分页
   const [totalPage, setTotalPage] = useState(0); // 分页总数
@@ -20,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     getBillList()
-  }, [page, currentSelect])
+  }, [page, currentSelect, currentTime])
 
   // 获取账单方法
   const getBillList = async () => {
@@ -42,18 +44,30 @@ const Home = () => {
     setRefreshing(REFRESH_STATE.success);
   }
 
-  // 添加账单弹窗
-  const toggle = () => {
+  // 弹出账单弹窗
+  const toggleType = () => {
     typeRef.current && typeRef.current.show()
   };
 
+  // 弹出日期弹窗
+  const toggleTime = () => {
+    timeRef.current && timeRef.current.show()
+  };
+
   // 筛选类型
-  const select = (item) => {
-    console.log(item)
+  const selectType = (item) => {
     setRefreshing(REFRESH_STATE.loading);
     // 触发刷新列表，将分页重制为 1
     setPage(1);
     setCurrentSelect(item)
+  }
+
+  // 筛选日期
+  const selectTime = (item) => {
+    setRefreshing(REFRESH_STATE.loading);
+    // 触发刷新列表，将分页重制为 1
+    setPage(1);
+    setCurrentTime(item)
   }
 
   // 请求列表数据
@@ -79,14 +93,14 @@ const Home = () => {
         <span className={s.expense}>总支出：<b>¥{totalAmount.totalExpense}</b></span>
         <span className={s.income}>总收入：<b>¥{totalAmount.totalIncome}</b></span>
       </div>
-      <div className={s.typeWrap}>
+      <div className={s.filterWrap}>
         <div className={s.left}>
-          <span className={s.title} onClick={toggle}>
+          <span className={s.title} onClick={toggleType}>
             { currentSelect.name || '全部类型' }<Icon className={s.arrow} type="arrow-bottom" />
           </span>
         </div>
-        <div className={s.right}>
-          <span className={s.time}>2022-06<Icon className={s.arrow} type="arrow-bottom" /></span>
+        <div className={s.right} onClick={toggleTime}>
+          <span className={s.time}>{ currentTime }<Icon className={s.arrow} type="arrow-bottom" /></span>
         </div>
       </div>
     </div>
@@ -113,7 +127,8 @@ const Home = () => {
           null
         }
     </div>
-    <PopupType ref={typeRef} onSelect={select}/>
+    <PopupType ref={typeRef} onSelect={selectType}/>
+    <PopupDate ref={timeRef} mode='month' onSelect={selectTime}/>
   </div>
 }
 
