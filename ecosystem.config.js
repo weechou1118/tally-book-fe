@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'tally_book',
+      name: 'tally-book-fe',
       script: 'vite-h5-server.js'
     },
   ],
