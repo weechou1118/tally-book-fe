@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { createStyleImportPlugin } from 'vite-plugin-style-import'
 import path from 'path'
+import rollupPluginNodeResolve from '@rollup/plugin-node-resolve'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,8 +17,9 @@ export default defineConfig({
           }
         }
       ]
-    }
-  )],
+    }),
+	  rollupPluginNodeResolve({extensions: ['.jsx', '.js']})
+  ],
   css: {
     modules: {
       localsConvention: 'dashesOnly',
@@ -42,6 +44,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
       'utils': path.resolve(__dirname, 'src/utils')
-    }
+    },
+    preserveSymlinks: true
   }
 })
