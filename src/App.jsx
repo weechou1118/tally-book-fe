@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 import routes from '@/router'
 import { ConfigProvider } from 'zarm'
-import NavBar from '@/components/Nav'
+import NavBar from '@/components/Nav/index.jsx'
 
 function App() {
   const location = useLocation()
